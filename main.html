@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marcador de Pontos - Truco</title>
+  
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: rgb(255, 220, 192);
+      color: #000000;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      padding: 20px;
+    }
+
+    h1 {
+    font-size: 35px;
+    font-weight: bold;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+    .time {
+      flex-grow: 1;
+      max-width: 400px;
+      margin: 0 auto;
+      margin-bottom: 20px;
+    }
+
+    .pontos {
+      font-size: 35px;
+      margin-bottom: 20px;
+    }
+
+    .vitorias {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    li {
+      margin: 5px;
+      display: block;
+    }
+
+    button {
+      font-size: 18px;
+      padding: 10px;
+      cursor: pointer;
+      background-color: rgb(189, 136, 101);
+      border: none;
+      border-radius: 5px;
+      color: #000000;
+      width: 100%;
+      margin-top: 10px;
+    }
+    button#Reset {
+    font-size: 23px;
+    padding: 15px;
+    cursor: pointer;
+    background-color: rgb(189, 136, 101);
+    border: none;
+    border-radius: 55px;
+    color: #000000;
+    width: 100%; /* Ocupa a largura total do contêiner pai */
+    margin-top: 100px; /* Adiciona margem no topo */
+    display: block;
+  }
+  </style>
+</head>
+<body>
+    <h1>TRUCO</h1>
+
+<div class="time">
+  <div class="pontos" id="pontosTime1">Time 1: 0</div>
+  <div class="vitorias" id="vitoriasTime1">Vitórias: 0</div>
+  <ul>
+    <li><button onclick="aumentarPontos(1, 'Time 1')">Aumentar Pontos</button></li>
+    <li><button onclick="diminuirPontos(1, 'Time 1')">Diminuir Ponto</button></li>
+    <li><button onclick="aumentar3Pontos(3, 'Time 1')">Truco</button></li>
+    <li><button onclick="aumentar6Pontos(6, 'Time 1')">6 Pontos</button></li>
+    <li><button onclick="aumentar12Pontos(12, 'Time 1')">12 Pontos</button></li>
+  </ul>
+</div>
+
+<div class="time">
+  <div class="pontos" id="pontosTime2">Time 2: 0</div>
+  <div class="vitorias" id="vitoriasTime2">Vitórias: 0</div>
+  <ul>
+    <li><button onclick="aumentarPontos(1, 'Time 2')">Aumentar Pontos</button></li>
+    <li><button onclick="diminuirPontos(1, 'Time 2')">Diminuir Ponto</button></li>
+    <li><button onclick="aumentar3Pontos(3, 'Time 2')">Truco</button></li>
+    <li><button onclick="aumentar6Pontos(6, 'Time 2')">6 Pontos</button></li>
+    <li><button onclick="aumentar12Pontos(12, 'Time 2')">12 Pontos</button></li>
+    
+  </ul>
+</div>
+
+<button id="Reset" onclick="resetarVitorias()">Resetar Vitórias</button>
+
+<script>
+  let pontosTime1 = 0;
+  let pontosTime2 = 0;
+  let vitoriasTime1 = 0;
+  let vitoriasTime2 = 0;
+  const limitePontos = 12;
+
+  function aumentarPontos(valor, time) {
+    if (time === 'Time 1') {
+      pontosTime1 += valor;
+      verificarVencedor('Time 1');
+      exibirPontos('Time 1');
+    } else if (time === 'Time 2') {
+      pontosTime2 += valor;
+      verificarVencedor('Time 2');
+      exibirPontos('Time 2');
+    }
+  }
+
+  function aumentar6Pontos(valor, time) {
+    if (time === 'Time 1') {
+      pontosTime1 += valor;
+      verificarVencedor('Time 1');
+      exibirPontos('Time 1');
+    } else if (time === 'Time 2') {
+      pontosTime2 += valor;
+      verificarVencedor('Time 2');
+      exibirPontos('Time 2');
+    }
+  }
+
+  function aumentar12Pontos(valor, time) {
+    if (time === 'Time 1') {
+      pontosTime1 += valor;
+      verificarVencedor('Time 1');
+      exibirPontos('Time 1');
+    } else if (time === 'Time 2') {
+      pontosTime2 += valor;
+      verificarVencedor('Time 2');
+      exibirPontos('Time 2');
+    }
+  }
+
+  function aumentar3Pontos(valor, time) {
+    if (time === 'Time 1') {
+      pontosTime1 += valor;
+      verificarVencedor('Time 1');
+      exibirPontos('Time 1');
+    } else if (time === 'Time 2') {
+      pontosTime2 += valor;
+      verificarVencedor('Time 2');
+      exibirPontos('Time 2');
+    }
+  }
+
+  function diminuirPontos(valor, time) {
+    if (time === 'Time 1') {
+      pontosTime1 -= valor;
+      exibirPontos('Time 1');
+    } else if (time === 'Time 2') {
+      pontosTime2 -= valor;
+      exibirPontos('Time 2');
+    }
+  }
+
+  function resetarPontos(time) {
+    if (time === 'Time 1') {
+      pontosTime1 = 0;
+      exibirPontos('Time 1');
+    } else if (time === 'Time 2') {
+      pontosTime2 = 0;
+      exibirPontos('Time 2');
+    }
+  }
+
+  function verificarVencedor(time) {
+    if (time === 'Time 1' && pontosTime1 >= limitePontos) {
+      alert('Time 1 é o vencedor!');
+      resetarPontos('Time 1');
+      vitoriasTime1++;
+      exibirVitorias('Time 1');
+    } else if (time === 'Time 2' && pontosTime2 >= limitePontos)
+        {alert('Time 2 é o vencedor!');
+            resetarPontos('Time 2');
+            vitoriasTime2++;
+            exibirVitorias('Time 2');
+        }
+    }
+
+  function exibirPontos(time) {
+    if (time === 'Time 1') {
+      document.getElementById('pontosTime1').innerText = 'Time 1: ' + pontosTime1;
+    } else if (time === 'Time 2') {
+      document.getElementById('pontosTime2').innerText = 'Time 2: ' + pontosTime2;
+    }
+  }
+
+  function exibirVitorias(time) {
+    if (time === 'Time 1') {
+      document.getElementById('vitoriasTime1').innerText = 'Vitórias: ' + vitoriasTime1;
+    } else if (time === 'Time 2') {
+      document.getElementById('vitoriasTime2').innerText = 'Vitórias: ' + vitoriasTime2;
+    }
+  }
+
+  function resetarVitorias() {
+    vitoriasTime1 = 0;
+    vitoriasTime2 = 0;
+    exibirVitorias('Time 1');
+    exibirVitorias('Time 2');
+  }
+</script>
+</body>
+</html>
